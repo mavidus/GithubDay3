@@ -6,6 +6,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -33,4 +34,13 @@ public class LoginTests {
         Assert.assertEquals(driver.getTitle(), "Web Orders");
 
     }
+
+
+    @AfterMethod
+    public void LogoutTest() throws InterruptedException {
+        driver.findElement(By.id("ctl00_logout")).click();
+        Assert.assertEquals(driver.getTitle(), "Web Orders Login");
+        Thread.sleep(5000);
+             driver.close();
+        }
 }
