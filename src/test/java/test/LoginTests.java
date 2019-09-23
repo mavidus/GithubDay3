@@ -32,6 +32,5 @@ public class LoginTests {
 
         Assert.assertEquals(driver.getTitle(), "Web Orders");
 
-/Users/mavidus/Documents/Java/src/test/java
     }
 }
