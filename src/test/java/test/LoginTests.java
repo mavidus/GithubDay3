@@ -4,9 +4,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -24,7 +27,7 @@ public class LoginTests {
         driver.manage().window().maximize();
     }
 
-    @Test
+    @Test(priority =0)
     public void loginTest1(){
         driver.get("http://secure.smartbearsoftware.com/samples/TestComplete12/WebOrders/Login.aspx?ReturnUrl=%2fsamples%2ftestcomplete12%2fweborders%2fDefault.aspx");
         driver.findElement(By.id("ctl00_MainContent_username")).sendKeys("Tester");
@@ -32,15 +35,21 @@ public class LoginTests {
         String title=driver.getTitle();
         Assert.assertEquals(title, "Web Orders");
         driver.findElement(By.id("ctl00_logout")).click();
-       
     }
 
-    @AfterMethod
+    @Test(priority =1)
+    public void NegativeoginTest1(){
+        driver.get("http://secure.smartbearsoftware.com/samples/TestComplete12/WebOrders/Login.aspx?ReturnUrl=%2fsamples%2ftestcomplete12%2fweborders%2fDefault.aspx");
+        driver.findElement(By.id("ctl00_MainContent_username")).sendKeys("Tester");
+        driver.findElement(By.id("ctl00_MainContent_password")).sendKeys("invalid" + Keys.ENTER);
+        String errorMsg=driver.findElement(By.id("ctl00_MainContent_status")).getText();
+        Assert.assertEquals(errorMsg, "Invalid Login or Password.");
+    }
+
+    @AfterTest
     public void LogoutTest() throws InterruptedException {
-      
-        Thread.sleep(5000);
+        Thread.sleep(3000);
              driver.close();
         }
-
 
 }
