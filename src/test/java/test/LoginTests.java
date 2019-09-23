@@ -36,10 +36,12 @@ public class LoginTests {
 
     }
 
-    @AfterMethod
-    public void LogoutTest(){
-                driver.findElement(By.linkText("Logout")).click();
-                driver.close();
 
+    @AfterMethod
+    public void LogoutTest() throws InterruptedException {
+        driver.findElement(By.id("ctl00_logout")).click();
+        Assert.assertEquals(driver.getTitle(), "Web Orders Login");
+        Thread.sleep(5000);
+             driver.close();
         }
 }
