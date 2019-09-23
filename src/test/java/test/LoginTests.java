@@ -22,7 +22,6 @@ public class LoginTests {
         driver =new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-
     }
 
     @Test
@@ -30,9 +29,7 @@ public class LoginTests {
         driver.get("http://secure.smartbearsoftware.com/samples/TestComplete12/WebOrders/Login.aspx?ReturnUrl=%2fsamples%2ftestcomplete12%2fweborders%2fDefault.aspx");
         driver.findElement(By.id("ctl00_MainContent_username")).sendKeys("Tester");
         driver.findElement(By.id("ctl00_MainContent_password")).sendKeys("test" + Keys.ENTER);
-
         Assert.assertEquals(driver.getTitle(), "Web Orders");
-
     }
 
 
@@ -43,4 +40,6 @@ public class LoginTests {
         Thread.sleep(5000);
              driver.close();
         }
+
+
 }
